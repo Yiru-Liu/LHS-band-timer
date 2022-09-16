@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Band Timer</title>
+        <style>
+            body {
+                background: black;
+            }
+            
+            div {
+                text-align: center;
+                font-size: 5em;
+                font-family: monospace;
+            }
+            
+            h1 {
+                margin: 0;
+            }
+            
+            #countdown {
+                color: white;
+            }
+            
+            #timesince {
+                color: darkred;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1 id="countdown"></h1>
+            <h1 id="timesince"></h1>
+        </div>
+        <script>
+            function dateToMin(d) {
+                return d.getHours() * 60 + d.getMinutes();
+            }
+            const bandEnds = [ [508, 594, 657, 742, 829],       // Advisory
+                               [499, 603, 657, 742, 829] ];     // Lion Block
+            function updatePage() {
+                var now = new Date();
+                var currentMin = dateToMin(now);
+                // console.log("Current minute:\t" + currentMin);
+                var currentWeekday = now.getDay();
+                var dayType = (currentWeekday % 2 == 0) ? 1 : 0;
+                // console.log("Day type:\t" + dayType);
+                var currentPeriod = 0;
+                var currentPeriodEnd = -1;
+                while(true) {
+                    currentPeriodEnd = bandEnds[dayType][currentPeriod];
+                    if(currentPeriodEnd >= currentMin) {
+                        break;
+                    } else {
+                        currentPeriod++;
+                    }
+                }
+                var lastPeriodEnd = bandEnds[dayType][currentPeriod-1];
+                // console.log("Current period:\t" + currentPeriod);
+                var minutes = currentPeriodEnd - currentMin;
+                var timesince = currentMin - lastPeriodEnd;
+                document.getElementById("countdown").innerHTML = minutes;
+                document.getElementById("timesince").innerHTML = timesince;
+            
+            }
+            updatePage();
+            var x = setInterval(updatePage, 5000);
+        </script>
+    </body>
+</html>
