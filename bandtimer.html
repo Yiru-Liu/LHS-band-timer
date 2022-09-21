@@ -37,8 +37,8 @@
             function dateToMin(d) {
                 return d.getHours() * 60 + d.getMinutes();
             }
-            const bandEnds = [ [508, 594, 657, 742, 829],       // Advisory
-                               [499, 603, 657, 742, 829] ];     // Lion Block
+            const bandEnds = [ [508, 531, 594, 657, 742, 829],       // Advisory
+                               [499, 549, 603, 657, 742, 829] ];     // Lion Block
             function updatePage() {
                 var now = new Date();
                 var currentMin = dateToMin(now);
