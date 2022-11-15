@@ -1,0 +1,1 @@
+# This file is not named simply "calendar" in order to avoid conflict with the 'calendar' package.
