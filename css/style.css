@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans&display=swap');
+@font-face {
+    font-family: 'Futura LT BoldOblique';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura LT BoldOblique'), url('/fonts/futura-lt/FuturaLT-BoldOblique.woff') format('woff');
+}
+
+:root {
+    --lhsBlue: #1B1464;
+    --lhsRed: #FE0000;
+}
+
+html {
+    padding: 0;
+}
+
+body {
+    font-family: "IBM Plex Sans", sans-serif;
+    margin: 0;
+}
+
+main {
+    margin: 16px;
+}
+
+.topnav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: var(--lhsBlue);
+    color: white;
+}
+
+.topnav a {
+    text-align: center;
+    color: white;
+    font-family: "Futura LT BoldOblique", sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 24pt;
+    text-decoration: none;
+    padding: 14px 16px;
+}
+
+.topnav .label {
+    margin: 18px 0;
+    font-weight: bold;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
