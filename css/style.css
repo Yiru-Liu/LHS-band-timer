@@ -3,7 +3,7 @@
     font-family: 'Futura LT BoldOblique';
     font-style: normal;
     font-weight: normal;
-    src: local('Futura LT BoldOblique'), url('/fonts/futura-lt/FuturaLT-BoldOblique.woff') format('woff');
+    src: local('Futura LT BoldOblique'), url('../fonts/futura-lt/FuturaLT-BoldOblique.woff') format('woff');
 }
 
 :root {
