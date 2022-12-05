@@ -9,6 +9,13 @@
 :root {
     --lhsBlue: #1B1464;
     --lhsRed: #FE0000;
+    --aLight: #F99;
+    --bLight: #FD9;
+    --cLight: #FF9;
+    --dLight: #9F9;
+    --eLight: #9FF;
+    --fLight: #99F;
+    --gLight: #F9F;
 }
 
 html {
@@ -46,6 +53,26 @@ main {
 .topnav .label {
     margin: 18px 0;
     font-weight: bold;
+}
+
+main section {
+    text-align: center;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;    
+    font-family: "IBM Plex Mono", "Courier New", Courier, monospace;
 }
 
 footer {
