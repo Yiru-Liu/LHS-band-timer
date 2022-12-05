@@ -5,6 +5,7 @@
 import pickle
 import ics
 import requests
+import json
 
 # Public address in iCal format of the 'LHS Daily Schedules' Google Calendar:
 ICAL_URL = "https://calendar.google.com/calendar/ical/phrlfon4jhttr410mqdjat14ug%40group.calendar.google.com/public/basic.ics"
@@ -22,15 +23,26 @@ class DailySchedule:
         if eventName.startswith("Day"):
             self.day_type = "regular"
             self.day_num = int(eventName[4])
-            self.rotation = eventName[eventName.index(": ")+1:]
+            self.rotation = eventName[eventName.index(": ")+2:]
         elif eventName.startswith("Midterm Exam"):
-            self.rotation = eventName[eventName.index(": ")+1:]
+            self.day_type = "Midterm Exam"
+            self.rotation = eventName.split("Midterm Exam ")[1]     # Get string after "Midterm Exam "
         elif eventName.startswith("Final Exam"):
             self.day_type = "Final Exam"
-            self.rotation = eventName[eventName.index(": ")+1:]
+            self.rotation = eventName[eventName.index(": ")+2:]
         elif eventName.startswith("All Periods"):
             self.day_type = "All Periods"
-            
+            self.rotation = "ABCDEFG"
+
+    def to_dict(self) -> dict:
+        d = {
+            "date": self.date.strftime("%Y-%m-%d"),
+            "day_type": self.day_type,
+            "rotation": self.rotation
+        }
+        if self.day_num is not None:
+            d["day_num"] = self.day_num
+        return d
 
 
 class YearCalendar:
@@ -41,8 +53,6 @@ class YearCalendar:
         sorted_events = sorted(cal.events, reverse=True)    # Sort from newest to oldest
 
         for event in sorted_events:
-            eventName = event.name.strip()
-
             if event.begin.date().year < beginYear:
                 break
 
@@ -53,7 +63,17 @@ class YearCalendar:
 
     def printCalendar(self) -> None:
         for dailySchedule in self.dailySchedules:
-            print(f"Day #{dailySchedule.day_num}; rotation {dailySchedule.rotation}; date {dailySchedule.date}")
+            print(json.dumps(dailySchedule.to_dict()))
+
+    def to_js_object(self) -> None:
+        obj = {}
+        for dailySchedule in self.dailySchedules:
+            d = dailySchedule.to_dict()
+            date = d["date"]
+            d.pop("date")
+            obj[date] = d
+        print(json.dumps(obj))
+            
 
 
 def main() -> None:
@@ -62,9 +82,10 @@ def main() -> None:
     print("Calendar got.")
 
 
-    # yearCalendar = YearCalendar()
-    # yearCalendar.buildCalendar(cal, 2022)
+    yearCalendar = YearCalendar()
+    yearCalendar.buildCalendar(cal, 2022)
     # yearCalendar.printCalendar()
+    yearCalendar.to_js_object()
 
 if __name__ == "__main__":
     main()
